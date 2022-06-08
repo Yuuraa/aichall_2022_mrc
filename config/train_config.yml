@@ -14,7 +14,7 @@ TRAINER :
   metric:
     - accuracy
   n_epochs: 20
-  early_stopping_target: val_loss
+  early_stopping_target: valid_loss
   early_stopping_patience: 10
   early_stopping_mode: min
   amp: False
