@@ -9,21 +9,15 @@ TRAINER :
   model: RobertaForQuestionAnswering
   pretrained: klue/roberta-large
   optimizer: adamw
-  learning_rate: 5.0e-5
+  learning_rate: 1.0e-5
   loss: crossentropy
   scheduler:
     sched: cosine
-    lr_noise: null
-    warmup_lr: 1.0e-6
-    min_lr: 1.0e-5
-    decay_epochs: 10
-    warmup_epochs: 5
-    cooldown_epochs: 10
-    patience_epochs: 10
-    decay_rate: 0.1
+    num_warmup_steps: 1000
+    num_training_steps: 12820
   metric:
     - accuracy
-  n_epochs: 100
+  n_epochs: 10
   early_stopping_target: val_loss
   early_stopping_patience: 10
   early_stopping_mode: min
