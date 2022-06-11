@@ -1,6 +1,6 @@
-from timm.scheduler import create_scheduler
-from types import SimpleNamespace
+from transformers import get_scheduler
 
 
-def get_scheduler(scheduler_cfg, optimizer):
-    return create_scheduler(optimizer=optimizer, args=SimpleNamespace(**scheduler_cfg))
+def create_scheduler(scheduler_cfg, optimizer):
+    sched_name = scheduler_cfg.pop('sched')
+    return get_scheduler(name=sched_name, optimizer=optimizer, **scheduler_cfg)
