@@ -15,6 +15,7 @@ from modules.earlystoppers import EarlyStopper
 from modules.losses import get_loss
 from modules.metrics import get_metric
 from modules.optimizers import get_optimizer
+from modules.schedulers import create_scheduler
 from modules.preprocessing import get_tokenizer
 from modules.recorders import Recorder
 from modules.trainer import Trainer
@@ -146,6 +147,10 @@ if __name__ == "__main__":
     optimizer = optimizer(
         params=model.parameters(), lr=config["TRAINER"]["learning_rate"]
     )
+
+    # Scheduler
+    if config["TRAINER"].get("scheduler", None):
+        scheduler = create_scheduler(config["TRAINER"]["scheduler"], optimizer)
 
     # Loss
     loss = get_loss(loss_name=config["TRAINER"]["loss"])
@@ -290,3 +295,5 @@ if __name__ == "__main__":
             if USE_WANDB:
                 wandb.log(best_row_dict)
             break
+
+

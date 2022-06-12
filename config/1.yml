@@ -1,0 +1,43 @@
+DIRECTORY:
+  dataset: /aichall_2022_mrc/dataset
+
+AUGMENTATION:
+  
+TRAINER :
+  debug: True
+  tokenizer: AutoTokenizer
+  model: RobertaForQuestionAnswering
+  pretrained: klue/roberta-large
+  optimizer: adamw
+  learning_rate: 1.0e-5
+  loss: crossentropy
+  scheduler:
+    sched: cosine
+    num_warmup_steps: 1000
+    num_training_steps: 12820
+  metric:
+    - accuracy
+  n_epochs: 10
+  early_stopping_target: val_loss
+  early_stopping_patience: 10
+  early_stopping_mode: min
+  amp: False
+  gpu: 1
+  seed: 42
+
+DATALOADER:
+  batch_size: 16 
+  num_workers: 0
+  shuffle: True
+  pin_memory: True
+  drop_last: False
+
+LOGGER:
+  wandb:
+    use: True
+    username: team-ikyo
+    project_serial: aichallenge_2022
+  logging_interval: 200
+  plot:
+    - loss
+    - accuracy
